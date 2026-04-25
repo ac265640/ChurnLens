@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Data — raw source files are never versioned
+data/raw/
+
+# Artifacts — large serialized model/data files
+data/artifacts/*.pkl
+data/artifacts/*.parquet
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment variables / secrets
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Project-specific
+claude-token-efficient/
+instrutions.txt
