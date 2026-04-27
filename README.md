@@ -10,7 +10,7 @@ ChurnLens is an end-to-end data science system that ingests raw telecom customer
 
 It culminates in a deployed Streamlit dashboard with a live threshold slider, CLV×churn heatmap, and per-customer SHAP waterfall.
 
-## Tech Stack
+## Tech  Stack
 - Python, Pandas, NumPy
 - Scikit-learn, XGBoost, Optuna, imbalanced-learn
 - SHAP, Lifetimes
