@@ -19,8 +19,10 @@ env/
 data/raw/
 
 # Artifacts — large serialized model/data files
-data/artifacts/*.pkl
+# Exception: track the trained XGBoost model artefact (Day 4 deliverable)
 data/artifacts/*.parquet
+data/artifacts/*.pkl
+!data/artifacts/xgb_model.pkl
 
 # Jupyter
 .ipynb_checkpoints/
