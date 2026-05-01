@@ -23,6 +23,7 @@ data/raw/
 data/artifacts/*.parquet
 data/artifacts/*.pkl
 !data/artifacts/xgb_model.pkl
+!data/artifacts/shap_values.parquet
 
 # Jupyter
 .ipynb_checkpoints/
