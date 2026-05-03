@@ -12,7 +12,7 @@ It culminates in a deployed Streamlit dashboard with a live threshold slider, CL
 
 ## Tech  Stack
 - Python, Pandas, NumPy
-- Scikit-learn, XGBoost, Optuna, imbalanced-learn
+- Scikit-learn, XGBoost , Optuna, imbalanced-learn
 - SHAP, Lifetimes
 - Streamlit, Plotly
 - pytest, Git
