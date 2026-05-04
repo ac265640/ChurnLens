@@ -223,6 +223,26 @@ def bootstrap_stability(
 
 # ── 5. Named Segment Assignment ────────────────────────────────────────────────
 
+def _label_by_rfm_score(score: int) -> str:
+    """
+    Map a composite rfm_score (3–12) to one of the 4 canonical segment names.
+
+    Thresholds chosen so the full 3–12 integer range is always covered:
+      12–10  → Champions    (top quartile behaviour)
+       9–7   → Loyal Active (above-median engagement)
+       6–5   → At-Risk      (below-median, some engagement)
+       4–3   → Hibernating  (lowest engagement)
+    """
+    if score >= 10:
+        return "Champions"
+    elif score >= 7:
+        return "Loyal Active"
+    elif score >= 5:
+        return "At-Risk"
+    else:
+        return "Hibernating"
+
+
 def assign_segment_names(
     df: pd.DataFrame,
     km_model: KMeans,
@@ -230,21 +250,33 @@ def assign_segment_names(
     scaler: Optional[StandardScaler] = None,
 ) -> pd.DataFrame:
     """
-    Map cluster IDs → human-readable segment names.
+    Assign human-readable segment names to every customer.
 
-    Strategy: rank cluster centroids by composite score
-    (mean rfm_recency + rfm_frequency + rfm_monetary in original scale).
-    Highest composite → Champions; lowest → Hibernating.
+    Priority logic:
+    1. If 'rfm_score' column is present (added by score_rfm_quartiles),
+       apply threshold-based labelling via _label_by_rfm_score().
+       This guarantees all 4 segment names appear regardless of k.
+    2. Fallback: rank cluster centroids by composite RFM and map to
+       SEGMENT_NAMES in order (original cluster-rank approach). Limited
+       to producing at most k distinct names.
 
-    This is rank-based, not hard-coded to cluster index, so it's stable
-    across different random seeds and dataset versions.
+    The rfm_score path is preferred because it is fully deterministic,
+    produces all 4 canonical labels on any realistic dataset, and is
+    independent of the K-Means random seed.
     """
+    df = df.copy()
+
+    # ── Path 1: rfm_score threshold labelling (preferred) ─────────────────────
+    if "rfm_score" in df.columns:
+        df["segment"] = df["rfm_score"].apply(_label_by_rfm_score)
+        return df
+
+    # ── Path 2: cluster-rank fallback ─────────────────────────────────────────
     if feature_cols is None:
         feature_cols = CLUSTER_FEATURES
 
     available = [c for c in feature_cols if c in df.columns]
 
-    # Get centroids in original feature space
     centroids_scaled = km_model.cluster_centers_
     if scaler is not None:
         centroids_orig = scaler.inverse_transform(centroids_scaled)
@@ -252,18 +284,20 @@ def assign_segment_names(
     else:
         centroid_df = pd.DataFrame(centroids_scaled, columns=available)
 
-    # Composite score: sum of RFM proxies (all three must exist, else fall back to first col)
-    rfm_proxy_cols = [c for c in ("rfm_recency", "rfm_frequency", "rfm_monetary") if c in centroid_df.columns]
-    if rfm_proxy_cols:
-        centroid_df["composite"] = centroid_df[rfm_proxy_cols].mean(axis=1)
-    else:
-        centroid_df["composite"] = centroid_df[available[0]]
+    rfm_proxy_cols = [
+        c for c in ("rfm_recency", "rfm_frequency", "rfm_monetary")
+        if c in centroid_df.columns
+    ]
+    centroid_df["composite"] = (
+        centroid_df[rfm_proxy_cols].mean(axis=1) if rfm_proxy_cols
+        else centroid_df[available[0]]
+    )
 
-    # Rank clusters: highest composite = rank 0 → Champions
-    centroid_df["rank"] = centroid_df["composite"].rank(ascending=False, method="first").astype(int) - 1
+    centroid_df["rank"] = (
+        centroid_df["composite"].rank(ascending=False, method="first").astype(int) - 1
+    )
 
     n_clusters = km_model.n_clusters
-    # Pad or trim SEGMENT_NAMES to match n_clusters
     names = SEGMENT_NAMES[:n_clusters]
     while len(names) < n_clusters:
         names.append(f"Segment_{len(names) + 1}")
@@ -273,9 +307,7 @@ def assign_segment_names(
         for cluster_id, rank in centroid_df["rank"].items()
     }
 
-    df = df.copy()
     df["segment"] = df["cluster_id"].map(cluster_to_name)
-
     return df
 
 
