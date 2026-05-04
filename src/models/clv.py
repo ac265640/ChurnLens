@@ -40,7 +40,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 MONTHLY_DISCOUNT_RATE: float = 0.01   # 1 % / month ≈ 12.7 % annual
 TIME_HORIZON_MONTHS:   int   = 12     # BG/NBD prediction window
 CLV_HIGH_PERCENTILE:   int   = 50     # median split for priority matrix
-CHURN_HIGH_THRESHOLD:  float = 0.50   # prob ≥ this → High Risk
+CHURN_HIGH_THRESHOLD:  float = 0.30   # prob ≥ 30% → High Risk (calibrated model: median prob is ~14%)
 HEATMAP_BINS:          int   = 3      # Low / Medium / High bins
 HEATMAP_LABELS: list[str]    = ["Low", "Medium", "High"]
 
