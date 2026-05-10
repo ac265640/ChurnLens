@@ -21,7 +21,7 @@ ChurnLens transforms raw telecom customer records into actionable retention inte
 
 | Layer | What it produces |
 |---|---|
-| **Feature Engineering** | RFM scores, temporal decay, service frequency, one-hot encoding |
+| **Feature Engineering** | RFM  scores, temporal decay, service frequency, one-hot encoding |
 | **Segmentation** | 4 named behavioural segments via RFM scoring + K-Means clustering |
 | **Churn Model** | Calibrated XGBoost classifier (SMOTE-in-CV, Optuna HPO, Platt scaling) |
 | **CLV Engine** | Discounted Cash Flow + BG/NBD lifetime value per customer |
