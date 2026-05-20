@@ -26,7 +26,7 @@ ChurnLens transforms raw telecom customer records into actionable retention inte
 | **Churn Model** | Calibrated XGBoost classifier (SMOTE-in-CV, Optuna HPO, Platt scaling) |
 | **CLV Engine** | Discounted Cash Flow + BG/NBD lifetime value per customer |
 | **Explainability** | SHAP global feature importance + per-customer waterfall charts |
-| **Dashboard** | 6-tab Streamlit app with live filters, threshold slider, and action centre |
+| **Dashboard** | 6-tab Streamlit app with live filters, threshold slider, and action centre  |
 
 ---
 
