@@ -9,7 +9,7 @@
 
 ---
 
-## 🔴 Live Demo
+## 🔴  Live Demo
 
 **👉 [https://churnlenss.streamlit.app/](https://churnlenss.streamlit.app/)**
 
