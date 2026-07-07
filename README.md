@@ -84,7 +84,7 @@ Raw CSV  →  Preprocessor  →  Feature Matrix
 | CLV | `lifetimes` (BG/NBD) |
 | Explainability | `shap` |
 | Dashboard | `streamlit`, `plotly` |
-| Testing | `pytest`, `pytest-cov` (49 tests across 7 modules) |
+| Testing | `pytest`, `pytest-cov`  (49 tests across 7 modules) |
 
 ---
 
