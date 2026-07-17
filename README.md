@@ -15,7 +15,7 @@
 
 ---
 
-## 📊 What ChurnLens Does
+## 📊 What ChurnLens Does 
 
 ChurnLens transforms raw telecom customer records into actionable retention intelligence through a complete ML pipeline:
 
