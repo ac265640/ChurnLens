@@ -19,7 +19,7 @@
 
 ChurnLens transforms raw telecom customer records into actionable retention intelligence through a complete ML pipeline:
 
-| Layer | What it produces |
+| Layer | What it produces | 
 |---|---|
 | **Feature Engineering** | RFM  scores, temporal  decay, service frequency, one-hot encoding |
 | **Segmentation** | 4 named behavioural segments via RFM scoring + K-Means clustering |
