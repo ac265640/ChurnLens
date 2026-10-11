@@ -15,6 +15,24 @@
 
 ---
 
+## 🎬 Demo Video
+
+[![ChurnLens demo video: click to watch](https://ac265640.github.io/ChurnLens/demo/poster.jpg)](https://ac265640.github.io/ChurnLens/)
+
+▶️ **[Watch the 36-second demo](https://ac265640.github.io/ChurnLens/)** (plays in your browser, 1080p with sound). Recorded on the live app:
+
+| Time | Scene |
+|---|---|
+| 0:07 | **Overview**: 7,043 customers, 26.6% average churn risk, $3,028,207 revenue at risk, 332 customers to save |
+| 0:11 | **RFM Segments** and **Cluster Profiles** |
+| 0:17 | **CLV Analysis**: lifetime value against churn risk |
+| 0:21 | Sidebar filter to the **Save** quadrant (332 customers, $264,900 at risk) |
+| 0:24 | **Action Center**: customer CUST-1770 at 42.8% churn risk and $2,225 CLV gets a SAVE recommendation, with a SHAP waterfall showing why |
+
+*If the app shows "gone to sleep", click "Yes, get this app back up!" and give it about a minute; Streamlit Cloud pauses idle apps.*
+
+---
+
 ## 📊 What ChurnLens Does 
 
 ChurnLens transforms raw telecom customer records into actionable retention intelligence through a complete ML pipeline:
